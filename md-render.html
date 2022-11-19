@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>md Render!</title>
+	</head>
+	<body>
+		<header>
+			<h1>Markdown Renderer!</h1>
+		</header>
+		<div class="text">
+			<textarea name="" id="" cols="90" rows="30"></textarea>
+		</div>
+
+		<button>Render!</button>
+
+		<style>
+			body {
+				background-color: rgb(51, 51, 233);
+				display: grid;
+				grid-template-columns: 1fr 2fr 1fr;
+				grid-template-rows: repeat(auto-fill, minmax(350px, 1fr));
+			}
+			header {
+				grid-column: 2/3;
+				grid-row: 1/2;
+				display: grid;
+				justify-self: center;
+				align-content: center;
+			}
+			.text {
+				grid-column: 2/3;
+				grid-row: 2/3;
+			}
+
+			button {
+				display: grid;
+				grid-column: 2/3;
+				grid-row: 3/4;
+				height: 40px;
+			}
+		</style>
+	</body>
+</html>

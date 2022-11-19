@@ -9,7 +9,15 @@
 	<body>
 		<header>
 			<h1>Font Effect Render</h1>
+			<h2>How to, why and what</h2>
+			<p id="explain">
+				Throw in your sentences, pick words to make bold or strike through - or need the whole thing to be italic?
+				<br />
+				Go for it! <br />
+				Selecting single words also marks up all repetitions of that word!
+			</p>
 		</header>
+
 		<div class="text">
 			<textarea name="text" id="" cols="90" rows="30"></textarea>
 			<div class="rendered__text"></div>
@@ -36,8 +44,18 @@
 				grid-column: 2/3;
 				grid-row: 1/2;
 				display: grid;
-				justify-self: center;
+				justify-items: center;
 				align-content: center;
+				text-transform: uppercase;
+			}
+
+			header p#explain {
+				background-color: white;
+				text-align: center;
+				padding: 10px;
+				border: 1px solid black;
+				box-shadow: 5px 0 0 (0, 0, 0, 0.1);
+				text-transform: none;
 			}
 			.text {
 				grid-column: 2/3;
@@ -66,16 +84,6 @@
 				display: flex;
 				gap: 20px;
 				grid-column: 2/3;
-			}
-
-			.bold {
-				font-style: bold;
-			}
-			.italic {
-				font-style: italic;
-			}
-			.strike {
-				text-decoration: line-through;
 			}
 		</style>
 

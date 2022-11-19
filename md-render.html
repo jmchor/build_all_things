@@ -8,13 +8,22 @@
 	</head>
 	<body>
 		<header>
-			<h1>Markdown Renderer!</h1>
+			<h1>Font Effect Render</h1>
 		</header>
 		<div class="text">
-			<textarea name="" id="" cols="90" rows="30"></textarea>
+			<textarea name="text" id="" cols="90" rows="30"></textarea>
+			<div class="rendered__text"></div>
 		</div>
 
-		<button>Render!</button>
+		<div class="buttons">
+			<button class="button">Render!</button>
+			<button data-markdown="Bold" class="button">Bold!</button>
+			<button data-markdown="Italic" class="button">Italic!</button>
+			<button data-markdown="Strike" class="button">Strike!</button>
+			<button data-markdown="Bold__all" class="button everything">Bold everything!</button>
+			<button data-markdown="Italic__all" class="button everything">Italic everything!</button>
+			<button data-markdown="Strike__all" class="button everything">Strike everything!</button>
+		</div>
 
 		<style>
 			body {
@@ -33,14 +42,131 @@
 			.text {
 				grid-column: 2/3;
 				grid-row: 2/3;
+				display: grid;
+				grid-template-columns: 1fr 1fr;
+				justify-content: center;
+				align-items: center;
+				grid-gap: 10px;
+			}
+
+			.rendered__text {
+				width: 658px;
+				height: 458px;
+				background-color: white;
 			}
 
 			button {
-				display: grid;
-				grid-column: 2/3;
-				grid-row: 3/4;
 				height: 40px;
+				width: 100px;
+				margin-top: 10px;
+				flex: 1;
+			}
+
+			.buttons {
+				display: flex;
+				gap: 20px;
+				grid-column: 2/3;
+			}
+
+			.bold {
+				font-style: bold;
+			}
+			.italic {
+				font-style: italic;
+			}
+			.strike {
+				text-decoration: line-through;
 			}
 		</style>
+
+		<script>
+			const text = document.querySelector('[name="text"]');
+			const renderButton = document.querySelector('.button');
+			const render = document.querySelector('.rendered__text');
+			const strike = document.querySelector('[data-markdown="Strike"]');
+			const bold = document.querySelector('[data-markdown="Bold"]');
+			const italic = document.querySelector('[data-markdown="Italic"]');
+			const buttons = document.querySelectorAll('.everything');
+			let textInputArray = [];
+
+			function renderNow() {
+				render.textContent = text.value;
+				textInputArray = text.value.split(' ');
+			}
+
+			function italicWord() {
+				let selection = document.getSelection().toString();
+				let transformedArray = textInputArray.map((item) => {
+					if (item === selection) {
+						return `<i>${selection}</i>`;
+					} else {
+						return item;
+					}
+				});
+				render.innerHTML = transformedArray.join(' ');
+				textInputArray = transformedArray;
+			}
+
+			function strikeWord() {
+				let selection = document.getSelection().toString();
+				let transformedArray = textInputArray.map((item) => {
+					if (item === selection) {
+						return `<s>${selection}</s>`;
+					} else {
+						return item;
+					}
+				});
+				render.innerHTML = transformedArray.join(' ');
+				textInputArray = transformedArray;
+			}
+
+			function boldWord() {
+				let selection = document.getSelection().toString();
+				let transformedArray = textInputArray.map((item) => {
+					if (item === selection) {
+						return `<b>${selection}</b>`;
+					} else {
+						return item;
+					}
+				});
+				render.innerHTML = transformedArray.join(' ');
+				textInputArray = transformedArray;
+			}
+
+			function getSelectedText() {
+				if (document.getSelection) {
+					console.log(document.getSelection().toString());
+					return document.getSelection();
+				} else if (document.selection) {
+					return document.selection.createRange().text;
+				}
+				return '';
+			}
+
+			function wholeParagraph(e) {
+				let newRendition = document.createElement('p');
+				newRendition.textContent = render.textContent;
+				if (e.target.dataset.markdown === 'Strike__all') {
+					newRendition.style.textDecoration = 'line-through';
+				} else if (e.target.dataset.markdown === 'Bold__all') {
+					newRendition.style.fontWeight = '900';
+				} else if (e.target.dataset.markdown === 'Italic__all') {
+					newRendition.style.fontStyle = 'italic';
+				}
+				while (render.firstChild) {
+					render.removeChild(render.firstChild);
+				}
+				render.appendChild(newRendition);
+			}
+
+			render.addEventListener('click', getSelectedText);
+			renderButton.addEventListener('click', renderNow);
+			strike.addEventListener('click', strikeWord);
+			bold.addEventListener('click', boldWord);
+			italic.addEventListener('click', italicWord);
+			buttons.forEach((button) => button.addEventListener('click', wholeParagraph));
+
+			// buttons.forEach((button) => button.addEventListener('click', italicWord));
+		</script>
 	</body>
 </html>

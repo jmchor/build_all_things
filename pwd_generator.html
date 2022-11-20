@@ -153,7 +153,7 @@
 				const option = e.target.dataset.option;
 				if (option === 'letters' && !letterPressed) {
 					passwordArray.push(...alphabet.split(''));
-					letterPressed = !letterPressed;
+					letterPressed = !letterPressed; //make sure to not add same items more than once
 				}
 				if (option === 'capitals' && !capitalPressed) {
 					passwordArray.push(...alphabet.toUpperCase().split(''));
@@ -177,9 +177,7 @@
 					let randomNumber = Math.floor(Math.random() * (passwordArray.length - 1));
 					displayArray.push(passwordArray[randomNumber]);
 				}
-				while (display.firstChild) {
-					display.removeChild(display.firstChild);
-				}
+				while (display.firstChild) display.removeChild(display.firstChild);
 				let newPassword = document.createElement('p');
 				newPassword.textContent = displayArray.join('');
 				display.appendChild(newPassword);
@@ -188,18 +186,9 @@
 			function clearAll() {
 				passwordArray = [];
 				letterPressed = capitalPressed = numberPressed = specialPressed = false;
-				// capitalPressed = false;
-				// numberPressed = false;
-				// specialPressed = false;
-
-				while (display.firstChild) {
-					display.removeChild(display.firstChild); //clear display
-				}
+				while (display.firstChild) display.removeChild(display.firstChild); //clear display
 				displayArray = [];
-				buttons.forEach((button) => {
-					button.classList.remove('active');
-				});
-
+				buttons.forEach((button) => button.classList.remove('active'));
 				pwLength.reset(); //empty input field
 			}
 
@@ -212,11 +201,7 @@
 			clearAllButton.addEventListener('click', clearAll);
 			copyButton.addEventListener('click', copyPassword);
 			buttons.forEach((button) => button.addEventListener('click', populateArray));
-			buttons.forEach((button) =>
-				button.addEventListener('click', () => {
-					button.classList.toggle('active');
-				})
-			);
+			buttons.forEach((button) => button.addEventListener('click', () => button.classList.toggle('active')));
 		</script>
 	</body>
 </html>

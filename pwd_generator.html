@@ -25,6 +25,7 @@
 					<input type="submit" value="Generate Password" />
 				</form>
 				<button class="clear">Clear all</button>
+				<button class="copy">Copy password</button>
 			</div>
 		</div>
 
@@ -124,6 +125,8 @@
 		</style>
 
 		<script>
+			//TODO add Clipboard API
+
 			const alphabet = 'abcdefghijklmnopqrstuvwxyz';
 			const numbers = '1234567890';
 			const specialChars = '!"§$%&/()=?{[]}-_:.;,#+*~';
@@ -132,6 +135,7 @@
 			const pwLength = document.querySelector('.pwlength');
 			const display = document.querySelector('.display');
 			const clearAllButton = document.querySelector('.clear');
+			const copyButton = document.querySelector('.copy');
 
 			let passwordArray = [];
 			let displayArray = [];
@@ -139,7 +143,6 @@
 			let capitalPressed = false;
 			let numberPressed = false;
 			let specialPressed = false;
-			let node;
 
 			function populateArray(e) {
 				const option = e.target.dataset.option;
@@ -164,18 +167,14 @@
 			function generatePassword(e) {
 				displayArray = [];
 				e.preventDefault();
-
 				let input = parseInt(form.value);
-
 				for (i = 1; i <= input; i++) {
 					let randomNumber = Math.floor(Math.random() * (passwordArray.length - 1));
 					displayArray.push(passwordArray[randomNumber]);
 				}
-
 				while (display.firstChild) {
 					display.removeChild(display.firstChild);
 				}
-
 				let newPassword = document.createElement('p');
 				newPassword.textContent = displayArray.join('');
 				display.appendChild(newPassword);
@@ -187,7 +186,6 @@
 				capitalPressed = false;
 				numberPressed = false;
 				specialPressed = false;
-
 				while (display.firstChild) {
 					display.removeChild(display.firstChild);
 				}
@@ -197,14 +195,20 @@
 				});
 			}
 
+			function copyPassword() {
+				let copyText = display.querySelector('p').textContent;
+				navigator.clipboard.writeText(copyText);
+			}
+
+			pwLength.addEventListener('submit', generatePassword);
+			clearAllButton.addEventListener('click', clearAll);
+			copyButton.addEventListener('click', copyPassword);
 			buttons.forEach((button) => button.addEventListener('click', populateArray));
 			buttons.forEach((button) =>
 				button.addEventListener('click', () => {
 					button.classList.toggle('active');
 				})
 			);
-			pwLength.addEventListener('submit', generatePassword);
-			clearAllButton.addEventListener('click', clearAll);
 		</script>
 	</body>
 </html>

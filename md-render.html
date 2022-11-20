@@ -181,14 +181,14 @@
 				render.appendChild(newRendition);
 			}
 
+			//TODO Add functions for font size
+
 			render.addEventListener('click', getSelectedText);
 			renderButton.addEventListener('click', renderNow);
 			strike.addEventListener('click', strikeWord);
 			bold.addEventListener('click', boldWord);
 			italic.addEventListener('click', italicWord);
 			buttons.forEach((button) => button.addEventListener('click', wholeParagraph));
-
-			// buttons.forEach((button) => button.addEventListener('click', italicWord));
 		</script>
 	</body>
 </html>

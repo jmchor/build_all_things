@@ -180,10 +180,10 @@
 
 			function clearAll() {
 				passwordArray = [];
-				letterPressed = false;
-				capitalPressed = false;
-				numberPressed = false;
-				specialPressed = false;
+				letterPressed = capitalPressed = numberPressed = specialPressed = false;
+				// capitalPressed = false;
+				// numberPressed = false;
+				// specialPressed = false;
 				while (display.firstChild) {
 					display.removeChild(display.firstChild);
 				}

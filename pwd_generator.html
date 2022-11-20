@@ -21,11 +21,11 @@
 			</div>
 			<div class="form">
 				<form class="pwlength">
-					<input type="text" name="pwd" placeholder="Password Length" />
+					<input type="text" name="pwd" id="pwd_input" placeholder="Password Length" />
 					<input type="submit" value="Generate Password" />
 				</form>
-				<button class="clear">Clear all</button>
 				<button class="copy">Copy password</button>
+				<button class="clear">Clear all</button>
 			</div>
 		</div>
 
@@ -109,10 +109,17 @@
 			}
 			.form {
 				display: flex;
+				flex-direction: column;
 				grid-column: 2/3;
 				grid-row: 4/5;
 				justify-content: center;
+				align-items: center;
 				gap: 50px;
+			}
+			form {
+				display: flex;
+				flex-direction: column;
+				gap: 59px;
 			}
 
 			.clear {
@@ -184,6 +191,7 @@
 				// capitalPressed = false;
 				// numberPressed = false;
 				// specialPressed = false;
+
 				while (display.firstChild) {
 					display.removeChild(display.firstChild);
 				}
@@ -191,6 +199,8 @@
 				buttons.forEach((button) => {
 					button.classList.remove('active');
 				});
+
+				document.querySelector('.pwlength').reset();
 			}
 
 			function copyPassword() {

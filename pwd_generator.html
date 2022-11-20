@@ -193,14 +193,14 @@
 				// specialPressed = false;
 
 				while (display.firstChild) {
-					display.removeChild(display.firstChild);
+					display.removeChild(display.firstChild); //clear display
 				}
 				displayArray = [];
 				buttons.forEach((button) => {
 					button.classList.remove('active');
 				});
 
-				document.querySelector('.pwlength').reset();
+				pwLength.reset(); //empty input field
 			}
 
 			function copyPassword() {
